@@ -8,4 +8,8 @@ import { AutodartsBoard } from 'autodarts-board'
   board.onMessage((msg) => {
     if (msg.type == 'motion_state') console.log(msg.data)
   })
+
+  // board.start()
+  // board.stop()
+  // board.reset()
 })()

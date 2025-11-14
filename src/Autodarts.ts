@@ -74,4 +74,38 @@ export class AutodartsBoard {
   onMessage(listener: (data: AutodartsWsMessage) => void) {
     this.eventEmitter.on('message', listener)
   }
+
+  private async fetch(path: string, init: RequestInit) {
+    return await fetch(`http://${this.host}:${this.port}${path}`, init)
+  }
+
+  /**
+   * Start the cameras
+   */
+  async start() {
+    const res = await this.fetch('/api/start', {
+      method: 'PUT',
+    })
+    return res.status == 200
+  }
+
+  /**
+   * Stop the cameras
+   */
+  async stop() {
+    const res = await this.fetch('/api/stop', {
+      method: 'PUT',
+    })
+    return res.status == 200
+  }
+
+  /**
+   * Reset the board
+   */
+  async reset() {
+    const res = await this.fetch('/api/reset', {
+      method: 'POST',
+    })
+    return res.status == 200
+  }
 }
