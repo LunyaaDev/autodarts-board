@@ -2,10 +2,11 @@ import { AutodartsWsMessage } from '@/interfaces/AutodartsWsRawMessage'
 import { EventEmitter } from 'stream'
 import { WebSocket } from 'ws'
 import { websocketAddNormalizedValues } from './utils/websocketAddNormalizedValues'
+import { AutodartsBoardOptions } from './interfaces/AutodartsBoardOptions'
 
 export class AutodartsBoard {
-  private host: string
-  private port: number
+  private _options: AutodartsBoardOptions
+
   private ws: null | WebSocket = null
 
   // date of last connect or message from autodarts
@@ -13,19 +14,31 @@ export class AutodartsBoard {
 
   private eventEmitter = new EventEmitter()
 
-  constructor(opts: { host: string; port?: number }) {
-    this.host = opts.host
-    this.port = opts.port || 3180
+  constructor(opts: { host: string } & Partial<AutodartsBoardOptions>) {
+    this._options = {
+      port: 3180,
+      reconnectAfter: 30,
+      ...opts,
+    }
 
     this.connect()
 
     // reconnect if last message older that 30 sec
     setInterval(() => {
       const secondsSinceLastMessage = this.secondsSinceLastMessage()
-      if (secondsSinceLastMessage && secondsSinceLastMessage > 30) {
+      if (
+        secondsSinceLastMessage &&
+        secondsSinceLastMessage > this.options.reconnectAfter
+      ) {
         this.reconnect()
       }
     })
+  }
+
+  get options() {
+    return {
+      ...this._options,
+    }
   }
 
   /**
@@ -33,7 +46,9 @@ export class AutodartsBoard {
    */
   private connect() {
     try {
-      this.ws = new WebSocket(`ws://${this.host}:${this.port}/api/events`)
+      this.ws = new WebSocket(
+        `ws://${this.options.host}:${this.options.port}/api/events`,
+      )
       // set last message to now to also reconnect if no message was send
       this.wsLastInteraction = new Date()
 
@@ -76,7 +91,10 @@ export class AutodartsBoard {
   }
 
   private async fetch(path: string, init: RequestInit) {
-    return await fetch(`http://${this.host}:${this.port}${path}`, init)
+    return await fetch(
+      `http://${this.options.host}:${this.options.port}${path}`,
+      init,
+    )
   }
 
   /**

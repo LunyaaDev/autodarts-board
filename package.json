@@ -1,6 +1,6 @@
 {
   "name": "autodarts-board",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A easy-to-use library to interact locally with an Autodarts Board.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
