@@ -1,0 +1,38 @@
+{
+  "name": "autodarts-board",
+  "version": "0.0.1",
+  "description": "A easy-to-use library to interact locally with Autodarts Board.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "pnpm exec tsup src/index.ts --dts"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "autodarts",
+    "autodarts-api",
+    "autodarts-client",
+    "autodarts-board"
+  ],
+  "author": "LunyaaDev",
+  "license": "MIT",
+  "packageManager": "pnpm@10.20.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lunyaadev/autodarts-board.git"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/ws": "^8.18.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}
