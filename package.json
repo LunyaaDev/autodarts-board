@@ -1,6 +1,6 @@
 {
   "name": "autodarts-board",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A easy-to-use library to interact locally with an Autodarts Board.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -27,8 +27,11 @@
     "url": "https://github.com/lunyaadev/autodarts-board.git"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
     "@types/node": "^24.10.1",
     "@types/ws": "^8.18.1",
+    "@typescript-eslint/eslint-plugin": "^8.52.0",
+    "@typescript-eslint/parser": "^8.52.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },

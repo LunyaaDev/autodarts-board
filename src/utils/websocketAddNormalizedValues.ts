@@ -1,6 +1,5 @@
 import {
   AutodartsWsMessage,
-  AutodartsWsMessage_CamState,
   AutodartsWsMessage_State,
 } from '@/interfaces/AutodartsWsRawMessage'
 

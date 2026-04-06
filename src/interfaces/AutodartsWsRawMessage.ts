@@ -13,7 +13,7 @@ export interface AutodartsWsMessage_CamStats {
     resolution: {
       width: number
       height: number
-      framerates: null | any
+      framerates: null | unknown
     }
   }
 }

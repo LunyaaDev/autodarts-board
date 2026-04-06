@@ -52,16 +52,16 @@ export class AutodartsBoard {
       // set last message to now to also reconnect if no message was send
       this.wsLastInteraction = new Date()
 
-      this.ws.on('error', (e) => {})
+      this.ws.on('error', () => {})
       this.ws.on('message', (msg) => {
         this.wsLastInteraction = new Date()
         try {
           const json = JSON.parse(msg.toString())
           this.eventEmitter.emit('rawMessage', json)
           this.eventEmitter.emit('message', websocketAddNormalizedValues(json))
-        } catch (error) {}
+        } catch {}
       })
-    } catch (error) {}
+    } catch {}
   }
 
   /**
@@ -86,7 +86,7 @@ export class AutodartsBoard {
    * Register message handler
    * @param listener callback function for received message
    */
-  onMessage(listener: (data: AutodartsWsMessage) => void) {
+  onMessage(listener: (_message: AutodartsWsMessage) => void) {
     this.eventEmitter.on('message', listener)
   }
 
